@@ -11,26 +11,30 @@ import {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  checkbox1Checked = false;
-  checkbox2Checked = true;
-  checkbox3Checked = false;
-  reactiveFormCtrl = new FormControl();
-  testFormCtrl = new FormControl("checked");
-  test1FormCtrl = new FormControl();
-  bindingVal = "";
-  bindingNoVal = "";
-  
   constructor() {}
-  
-  onChange() {
-    this.checkbox1Checked = !this.checkbox1Checked;
+
+  boundVal = "";
+
+  reactiveFormCtrl = new FormControl();
+
+  dynamicItems = [
+    {
+      name: "Fruits",
+      value: "banana",
+      options: [{ value: "apple" }, { value: "orange" }, { value: "banana" }],
+    },
+    {
+      name: "Vegetables",
+      value: "carrot",
+      options: [
+        { value: "brocolli" },
+        { value: "carrot" },
+        { value: "spinach" },
+      ],
+    },
+  ];
+
+  onChange(e: any) {
+    console.log("onChange", e.detail.name, e.detail.value);
   }
-  
-  onChange2() {
-    this.checkbox2Checked = !this.checkbox2Checked;
-  }
-  
-  onChange3() {
-    this.checkbox3Checked = !this.checkbox3Checked;
-  }
-  }
+}
