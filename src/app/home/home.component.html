@@ -1,123 +1,125 @@
-<main>
-<h1>Checkbox</h1>
+<h1>Radio</h1>
 
 <h2>Basic</h2>
-<goa-checkbox
-  name="desserts"
-  text="Ice Cream"
-  value="10"
-  [checked]="checkbox1Checked"
-  (_change)="onChange()"
->
-</goa-checkbox>
-
-<h2>Checked</h2>
-<goa-checkbox
-  name="desserts"
-  text="Ice Cream"
-  value="10"
-  [checked]="checkbox2Checked"
-  (_change)="onChange2()"
-></goa-checkbox>
-
-<h2>Disabled</h2>
-<goa-checkbox
-  name="desserts"
-  text="Ice Cream"
-  value="10"
-  disabled
-></goa-checkbox>
+<goa-radio-group name="color" value="orange" (_change)="onChange($event)">
+  <goa-radio-item name="color" value="red"></goa-radio-item>
+  <goa-radio-item name="color" value="blue"></goa-radio-item>
+  <goa-radio-item name="color" value="orange"></goa-radio-item>
+</goa-radio-group>
 
 <h2>Error</h2>
-<goa-checkbox
-  name="desserts"
-  text="Ice Cream"
-  value="10"
-  [checked]="checkbox3Checked"
-  (_change)="onChange3()"
-  error
-></goa-checkbox>
+<goa-radio-group name="color1" value="orange" error>
+  <goa-radio-item name="color1" value="red"></goa-radio-item>
+  <goa-radio-item name="color1" value="blue"></goa-radio-item>
+  <goa-radio-item name="color1" value="orange"></goa-radio-item>
+</goa-radio-group>
+
+<h2>Label</h2>
+<goa-radio-group name="color2" value="orange">
+  <goa-radio-item name="color2" label="Red" value="red"></goa-radio-item>
+  <goa-radio-item name="color2" label="Blue" value="blue"></goa-radio-item>
+  <goa-radio-item name="color2" label="Orange" value="orange"></goa-radio-item>
+</goa-radio-group>
+
+<h2>Disabled</h2>
+<goa-radio-group name="color3" value="orange" disabled>
+  <goa-radio-item name="color3" value="red"></goa-radio-item>
+  <goa-radio-item name="color3" value="blue"></goa-radio-item>
+  <goa-radio-item name="color3" value="orange"></goa-radio-item>
+</goa-radio-group>
+
+<h2>Orientation</h2>
+<goa-radio-group name="color4" value="orange" orientation="horizontal">
+  <goa-radio-item name="color4" value="red"></goa-radio-item>
+  <goa-radio-item name="color4" value="blue"></goa-radio-item>
+  <goa-radio-item name="color4" value="orange"></goa-radio-item>
+</goa-radio-group>
+
+<h2>Dynamic</h2>
+<div *ngFor="let item of dynamicItems">
+  <h4>{{ item.name }}</h4>
+  <goa-radio-group
+    [attr.name]="item.name"
+    [value]="item.value"
+    (_change)="onChange($event)"
+  >
+    <goa-radio-item
+      *ngFor="let option of item.options"
+      [attr.name]="item.name"
+      [value]="option.value"
+      [label]="option.value"
+    >
+    </goa-radio-item>
+  </goa-radio-group>
+</div>
 
 <h2>Binding</h2>
-<div>Binding: {{ bindingVal }}</div>
-<goa-checkbox
-  goaValue
-  name="desserts"
-  text="Ice Cream"
-  value="IceCream"
-  [(ngModel)]="bindingVal"
-></goa-checkbox>
-
-<div>Binding: {{ bindingNoVal }}</div>
-<goa-checkbox
-  goaValue
-  name="desserts"
-  text="Ice Cream"
-  checked="true"
-  [(ngModel)]="bindingNoVal"
-></goa-checkbox>
+<div>Selected value: {{ boundVal }}</div>
+<goa-radio-group goaValue name="bindingColor" [(ngModel)]="boundVal">
+  <goa-radio-item name="bindingColor" value="red"></goa-radio-item>
+  <goa-radio-item name="bindingColor" value="blue"></goa-radio-item>
+  <goa-radio-item name="bindingColor" value="orange"></goa-radio-item>
+</goa-radio-group>
 
 <h2>Margin Spacing</h2>
-<goa-checkbox
-  name="desserts"
-  text="Ice Cream"
-  value="10"
-  [checked]="checkbox1Checked"
-  (_change)="onChange()"
+<goa-radio-group
   mt="m"
   mb="xs"
   ml="xl"
   mr="2xl"
+  name="color"
+  value="orange"
+  (_change)="onChange($event)"
 >
-</goa-checkbox>
+  <goa-radio-item name="color" value="red"></goa-radio-item>
+  <goa-radio-item name="color" value="blue"></goa-radio-item>
+  <goa-radio-item name="color" value="orange"></goa-radio-item>
+</goa-radio-group>
 
 <h2>Reactive Binding</h2>
-<div>Binding: {{ reactiveFormCtrl.value }}</div>
-<goa-checkbox
+<div>Selected value: {{ reactiveFormCtrl.value }}</div>
+<goa-radio-group
   goaValue
-  name="desserts"
-  text="Ice Cream"
+  name="bindingColor"
   [formControl]="reactiveFormCtrl"
   [value]="reactiveFormCtrl.value"
-></goa-checkbox>
+>
+  <goa-radio-item name="bindingColor" value="red"></goa-radio-item>
+  <goa-radio-item name="bindingColor" value="blue"></goa-radio-item>
+  <goa-radio-item name="bindingColor" value="orange"></goa-radio-item>
+</goa-radio-group>
 
-<h2>Reactive Binding [Disabled]</h2>
-<goa-checkbox
+<h2>Reactive Binding - Disabled</h2>
+<goa-radio-group
+  name="color"
   goaValue
-  name="desserts"
-  text="Ice Cream"
   [formControl]="reactiveFormCtrl"
   [attr.disabled]="true"
-></goa-checkbox>
-
-<h2>Reactive Binding - checked</h2>
-<div>Binding: {{ testFormCtrl.value }}</div>
-<goa-checkbox
-  goaValue
-  name="desserts"
-  text="Ice Cream"
-  [formControl]="testFormCtrl"
-></goa-checkbox>
-
-<div>Binding: {{ test1FormCtrl.value }}</div>
-<button (click)="test1FormCtrl.setValue('checked')">
-  Set Value to checked
-</button>
-<goa-checkbox
-  goaChecked
-  name="desserts"
-  text="Ice Cream"
-  [formControl]="test1FormCtrl"
-></goa-checkbox>
-
-<h2>Checkbox with description</h2>
-<goa-checkbox
-  goaChecked
-  name="description"
-  text="Checkbox with description"
-  description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam dolor
-  eligendi, ipsam sed beatae exercitationem inventore? Saepe ipsa reiciendis
-  inventore quia, voluptatem a amet id possimus rerum ullam, fugiat eveniet."
+  value="reactiveFormCtrl.value"
 >
-</goa-checkbox>
-</main>
+  <goa-radio-item name="color" value="red"></goa-radio-item>
+  <goa-radio-item name="color" value="blue"></goa-radio-item>
+  <goa-radio-item name="color" value="orange"></goa-radio-item>
+</goa-radio-group>
+
+<h2>Radio group with descriptions</h2>
+<goa-radio-group
+  name="color"
+  goaValue
+  [formControl]="reactiveFormCtrl"
+  value="reactiveFormCtrl.value"
+>
+  <goa-radio-item
+    name="color"
+    value="red"
+    description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio rerum dicta
+    maiores tempora tenetur modi quasi quo dolor earum veniam, voluptate
+    alias, nihil eveniet pariatur eaque laborum quam minima consequatur."
+  ></goa-radio-item>
+  <goa-radio-item
+    name="color"
+    value="blue"
+    description="Item description"
+  ></goa-radio-item>
+  <goa-radio-item name="color" value="orange"></goa-radio-item>
+</goa-radio-group>
